@@ -13,7 +13,7 @@ module Gates
     attr_accessor :manifest
 
     def load(file_path)
-      hash = Psych.parse_file(file_path)
+      hash = Psych.load_file(file_path)
       @manifest = Manifest.new(hash)
     end
 
