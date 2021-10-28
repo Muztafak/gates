@@ -10,12 +10,8 @@ module Gates
           gate_data['description']
         )
       end
-      #@request = request.map { |p| puts "#{p.class} ::: #{p}" }
-      @response = response.map { |p| puts "#{p.class} ::: #{p}" }
-      @request = Params.new(
-        request['allowed'],
-        request['deprecated']
-      )
+      @request = Params.new(request['allowed'], request['deprecated'])
+      @response = Params.new(response['allowed'], response['deprecated'])
       @predecessor = predecessor
     end
 
@@ -29,6 +25,22 @@ module Gates
       else
         false
       end
+    end
+
+    def request_params
+      allowed_params(:request)
+    end
+
+    def response_params
+      allowed_params(:response)
+    end
+
+    def allowed_params(type)
+      allowed_params = send(type).allowed || []
+      puts "aaa #{allowed_params}"
+      deprecated_params = send(type).deprecated || []
+      puts "bbb #{deprecated_params}"
+      (predecessor&.allowed_params(type) || []) + allowed_params - deprecated_params
     end
   end
 end
