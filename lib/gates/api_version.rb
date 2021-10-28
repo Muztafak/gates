@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Gates
   class ApiVersion
     attr_accessor :id, :gates, :request, :response, :predecessor
