@@ -1,0 +1,16 @@
+---
+version:
+  id: 2017-01-30-1
+  gates:
+    -
+      name: reallows_amount
+      description: |
+        Just kidding. Sending amount is supported for some folks.
+  request:
+    allowed:
+      - sdfrtggh
+    deprecated:
+      - bbb
+  response:
+    deprecated:
+      - eee

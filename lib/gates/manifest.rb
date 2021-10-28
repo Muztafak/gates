@@ -17,6 +17,7 @@ module Gates
           version_data['response'],
           versions.last
         )
+        puts version_data['request']
         versions << api_version
         puts versions.last
       end

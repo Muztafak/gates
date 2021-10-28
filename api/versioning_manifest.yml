@@ -1,0 +1,77 @@
+---
+versions:
+  -
+    id: '2016-01-31'
+    gates:
+      -
+        name: reallows_amount
+        description: |
+          Just kidding. Sending amount is supported for some folks.
+    request:
+      allowed:
+        - request_test_2016-1
+        - request_test_2016-2
+        - request_test_2016-3
+      deprecated:
+        - request_test_2016-4
+        - request_test_2016-5
+        - request_test_2016-6
+    response:
+      allowed:
+        - request_test_2016-1
+        - request_test_2016-2
+        - request_test_2016-3
+      deprecated:
+        - request_test_2016-4
+        - request_test_2016-5
+        - request_test_2016-6
+  -
+    id: '2016-01-30'
+    gates:
+      -
+        name: disallows_amount
+        description: |
+          Sending amount is now deprecated.
+    request:
+      allowed:
+        - request_test_2016-1
+        - request_test_2016-2
+        - request_test_2016-3
+      deprecated:
+        - request_test_2016-4
+        - request_test_2016-5
+        - request_test_2016-6
+    response:
+      allowed:
+        - request_test_2016-1
+        - request_test_2016-2
+        - request_test_2016-3
+      deprecated:
+        - request_test_2016-4
+        - request_test_2016-5
+        - request_test_2016-6
+  -
+    id: '2016-01-20'
+    gates:
+      -
+        name: allows_amount
+        description: |
+          Sending amount is supported.
+    request:
+      allowed:
+        - request_test_2016-1
+        - request_test_2016-2
+        - request_test_2016-3
+      deprecated:
+        - request_test_2016-4
+        - request_test_2016-5
+        - request_test_2016-6
+    response:
+      allowed:
+        - request_test_2016-1
+        - request_test_2016-2
+        - request_test_2016-3
+      deprecated:
+        - request_test_2016-4
+        - request_test_2016-5
+        - request_test_2016-6
