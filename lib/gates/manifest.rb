@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Gates
   class Manifest
     attr_accessor :version_map
@@ -6,17 +8,17 @@ module Gates
       versions = []
       # iterate backward through the versions to be able to associate the
       # predecessor with each
-      manifest_hash['versions'].reverse.each do |version_info|
-        version = ApiVersion.new
-        version.id = version_info['id']
-        version.gates = version_info['gates'].map do |gate_info|
-          gate = Gate.new
-          gate.name = gate_info['name']
-          gate
-        end
-        version.predecessor = versions.first
-
-        versions << version
+      manifest_hash['versions'].sort_by { |version| version['id'] }
+                               .each do |version_data|
+        api_version = ApiVersion.new(
+          version_data['id'],
+          version_data['gates'],
+          version_data['request'],
+          version_data['response'],
+          versions.last
+        )
+        versions << api_version
+        puts versions.last
       end
 
       self.version_map = {}
