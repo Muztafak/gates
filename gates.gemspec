@@ -7,8 +7,8 @@ require 'gates/version'
 Gem::Specification.new do |spec|
   spec.name          = 'gates'
   spec.version       = Gates::VERSION
-  spec.authors       = ['Phillip Baker, Yaacob Naftali']
-  spec.email         = ['phillbaker@retrodict.com, yaacob.neftali@enviaya.com.mx']
+  spec.authors       = ['Phillip Baker', 'Yaacob Naftali']
+  spec.email         = ['phillbaker@retrodict.com', 'yaacob.neftali@enviaya.com.mx']
   spec.summary       = %q(Permanent backwards compatibility for changing APIs.)
   spec.homepage      = 'https://github.com/Muztafak/enviaya_versioning.git'
   spec.license       = 'MIT'
