@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Phillip Baker', 'Yaacob Naftali']
   spec.email         = ['phillbaker@retrodict.com', 'yaacob.neftali@enviaya.com.mx']
   spec.summary       = %q(Permanent backwards compatibility for changing APIs.)
-  spec.homepage      = 'https://github.com/Muztafak/enviaya_versioning.git'
+  spec.homepage      = 'https://github.com/Muztafak/gates.git'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0")
