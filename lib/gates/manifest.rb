@@ -13,8 +13,7 @@ module Gates
         api_version = ApiVersion.new(
           version_data['id'],
           version_data['gates'],
-          version_data['request'],
-          version_data['response'],
+          version_data['actions'],
           versions.last
         )
         puts version_data['request']

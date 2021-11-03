@@ -2,9 +2,9 @@
 
 module Gates
   class ApiVersion
-    attr_accessor :id, :gates, :request, :response, :predecessor
+    attr_accessor :id, :gates, :actions, :predecessor
 
-    def initialize(id, gates, request, response, predecessor)
+    def initialize(id, gates, actions, predecessor)
       @id = id
       @gates = gates.map do |gate_data|
         Gate.new(
@@ -12,8 +12,13 @@ module Gates
           gate_data['description']
         )
       end
-      @request = Params.new(request['allowed'], request['deprecated'])
-      @response = Params.new(response['allowed'], response['deprecated'])
+      @actions = actions.map do |action_data|
+        Actions::Action.new(
+          action_data['name'],
+          action_data['request'],
+          action_data['response']
+        )
+      end
       @predecessor = predecessor
     end
 
@@ -29,20 +34,23 @@ module Gates
       end
     end
 
-    def request_params
-      allowed_params(:request)
+    def request_params_for(action)
+      allowed_params(action, :request)
     end
 
-    def response_params
-      allowed_params(:response)
+    def response_params_for(action)
+      allowed_params(action, :response)
     end
 
-    def allowed_params(type)
-      allowed_params = send(type).allowed || []
+    def allowed_params(action, type)
+      action_index = actions.index(action)
+      allowed_params = action_index ? actions[action_index].send(type).allowed : {}
       puts "aaa #{allowed_params}"
-      deprecated_params = send(type).deprecated || []
+      deprecated_params = action_index ? actions[action_index].send(type).deprecated : []
       puts "bbb #{deprecated_params}"
-      (predecessor&.allowed_params(type) || []) + allowed_params - deprecated_params
+      predecessor = send(:predecessor)&.allowed_params(action, type) || {}
+      deprecated_params.each { |key| predecessor.delete(key) }
+      predecessor.merge(allowed_params)
     end
   end
 end
