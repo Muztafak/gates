@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Gates
+module Actions
   class Params
     attr_reader :allowed, :deprecated
 
