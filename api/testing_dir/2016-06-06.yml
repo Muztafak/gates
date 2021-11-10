@@ -12,7 +12,7 @@ version:
         allowed:
           aaa: aaa
           bbb:
-            abc: Integer
+            abc: :Integer
       response:
         allowed:
           ppp: ppp
@@ -26,6 +26,6 @@ version:
           vvv: vvv
       response:
         allowed:
-          mmm: Integer
+          mmm: :Integer
           nnn:
             ñññ: 'String'

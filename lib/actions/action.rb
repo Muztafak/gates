@@ -2,11 +2,12 @@
 
 module Actions
   class Action
-    attr_reader :name, :request, :response
+    attr_reader :name, :required_arguments, :optional_arguments, :response
 
-    def initialize(name, request, response)
+    def initialize(name, required_arguments, optional_arguments, response)
       @name = name
-      @request = Params.new(request['allowed'], request['deprecated'])
+      @required_arguments = Params.new(required_arguments['allowed'], required_arguments['deprecated'])
+      @optional_arguments = Params.new(optional_arguments['allowed'], optional_arguments['deprecated'])
       @response = Params.new(response['allowed'], response['deprecated'])
     end
 

@@ -1,19 +1,21 @@
 ---
 version:
-  id: '2017-01-30'
+  id: '2016-01-30'
   gates:
-    - name: reallows_amount
+    -
+      name: 'reallows_amount1'
       description: |
-        Just kidding. Sending amount is supported for some folks.
+        'Just kidding. Sending amount is supported for some folks.'
   actions:
-    - name: directionsIndex
+    - name: 'directionsIndexaa'
       request:
         allowed:
-          ccc: ccc
-        deprecated:
-          - bbb
+          aaabbb: aaabbb
+          bbbccc:
+            abcdef: :Integer
       response:
         allowed:
-          rrr: rrr
+          ppp: pppqqq
+          qqq: qqqrrr
         deprecated:
-          - ppp
+          - 'a jokes'

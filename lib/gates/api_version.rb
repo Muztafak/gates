@@ -15,7 +15,8 @@ module Gates
       @actions = actions.map do |action_data|
         Actions::Action.new(
           action_data['name'],
-          action_data['request'],
+          action_data['required_arguments'],
+          action_data['optional_arguments'],
           action_data['response']
         )
       end
@@ -34,8 +35,12 @@ module Gates
       end
     end
 
-    def request_params_for(action)
-      allowed_params(action, :request)
+    def required_params_for(action)
+      allowed_params(action, :required_arguments)
+    end
+
+    def optional_params_for(action)
+      allowed_params(action, :optional_arguments)
     end
 
     def response_params_for(action)
