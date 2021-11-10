@@ -6,9 +6,9 @@ module Actions
 
     def initialize(name, required_arguments, optional_arguments, response)
       @name = name
-      @required_arguments = Params.new(required_arguments['allowed'], required_arguments['deprecated'])
-      @optional_arguments = Params.new(optional_arguments['allowed'], optional_arguments['deprecated'])
-      @response = Params.new(response['allowed'], response['deprecated'])
+      @required_arguments = required_arguments ? Params.new(required_arguments['allowed'], required_arguments['deprecated']) : Params.new({  }, [])
+      @optional_arguments = optional_arguments ? Params.new(optional_arguments['allowed'], optional_arguments['deprecated']) : Params.new({  }, [])
+      @response = response ? Params.new(response['allowed'], response['deprecated']) : Params.new({  }, [])
     end
 
     def ==(other_name)
