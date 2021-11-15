@@ -6,20 +6,29 @@ module Gates
 
     def initialize(id, gates, actions, predecessor)
       @id = id
-      @gates = gates.map do |gate_data|
-        Gate.new(
-          gate_data['name'],
-          gate_data['description']
-        )
-      end
-      @actions = actions.map do |action_data|
-        Actions::Action.new(
-          action_data['name'],
-          action_data['required_arguments'],
-          action_data['optional_arguments'],
-          action_data['response']
-        )
-      end
+      @gates =
+        begin
+          gates.map do |gate_data|
+            Gate.new(
+              gate_data['name'],
+              gate_data['description']
+            )
+          end
+        rescue StandardError
+          []
+        end
+      @actions =
+        begin
+          actions.map do |action_data|
+            Actions::Action.new(
+              action_data['name'],
+              action_data['request'],
+              action_data['response']
+            )
+          end
+        rescue StandardError
+          []
+        end
       @predecessor = predecessor
     end
 
@@ -35,12 +44,8 @@ module Gates
       end
     end
 
-    def required_params_for(action)
-      allowed_params(action, :required_arguments)
-    end
-
-    def optional_params_for(action)
-      allowed_params(action, :optional_arguments)
+    def request_params_for(action)
+      allowed_params(action, :request)
     end
 
     def response_params_for(action)

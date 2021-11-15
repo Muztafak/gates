@@ -15,7 +15,7 @@ module Gates
   UninitializedError = Class.new(Gates::Error)
 
   class << self
-    attr_accessor :manifest
+    attr_accessor :manifest, :last_version
 
     def load(file_path)
       hash = case
@@ -26,8 +26,10 @@ module Gates
                  end.compact
                }
              when File.file?(file_path) then Psych.load_file(file_path)
+             else raise UninitializedError
         end
       @manifest = Manifest.new(hash)
+      @last_version = Gates.manifest.version_map.keys.last
     end
 
     def for(version_id)
