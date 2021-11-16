@@ -23,7 +23,8 @@ module Gates
             Actions::Action.new(
               action_data['name'],
               action_data['request'],
-              action_data['response']
+              action_data['response'],
+              action_data['arguments']
             )
           end
         rescue StandardError
@@ -50,6 +51,10 @@ module Gates
 
     def response_params_for(action)
       allowed_params(action, :response)
+    end
+
+    def arguments_params_for(action)
+      allowed_params(action, :arguments)
     end
 
     def allowed_params(action, type)
