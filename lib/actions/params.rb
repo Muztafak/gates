@@ -5,7 +5,7 @@ module Actions
     attr_reader :allowed, :deprecated
 
     def initialize(allowed, deprecated)
-      @allowed = allowed || []
+      @allowed = allowed || {}
       @deprecated = deprecated || []
     end
   end
