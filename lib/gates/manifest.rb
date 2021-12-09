@@ -8,8 +8,12 @@ module Gates
       versions = []
       # iterate backward through the versions to be able to associate the
       # predecessor with each
-      manifest_hash['versions'].sort_by { |version| version['id'] }
-                               .each do |version_data|
+      arranged_versions = manifest_hash['versions'].group_by { |aaa| aaa['id'] }
+      arranged_versions = arranged_versions.map do |k,v|
+        { 'id' => k, 'gates' => (v.map { |raw_version| raw_version['gates'] }).flatten(1), 'actions' => (v.map { |raw_version| raw_version['actions'] }).flatten(1) }
+      end
+      arranged_versions = arranged_versions.sort_by { |version| version['id'] }
+      arranged_versions.each do |version_data|
         api_version = ApiVersion.new(
           version_data['id'],
           version_data['gates'],
