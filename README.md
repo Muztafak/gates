@@ -106,6 +106,7 @@ version:
           tax: Integer
         deprecated:
           - old_parameter
+```
 
 ### Testing
 
