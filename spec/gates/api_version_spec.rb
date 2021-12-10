@@ -1,27 +1,53 @@
-require 'spec_helper'
+# frozen_string_literal: true
 
 require 'spec_helper'
+
 
 describe Gates::ApiVersion do
   describe '#enabled?' do
     let(:initial_version) do
       gate = { 'name' => 'allows_foo', 'description' => 'test description' }
+      action = {
+        'name' => 'fooAction',
+        'request' => {
+          'allowed' => { 'user' => 'String', something: 'Type' }
+        },
+        'arguments' => {
+          'allowed' => { 'age' => 'Integer', 'delete' => 'Bool' }
+        },
+        'response' => {
+          'allowed' => { 'name' => 'String', 'anything' => 'Type' }
+        }
+      }
       api_version = Gates::ApiVersion.new(
-        '2016-01-29',
+        '2020-01-01',
         [gate],
-        { 'allowed' => ['req1', 'req2', 'req3'], 'deprecated' => ['reqa', 'reqb'] },
-        { 'allowed' => ['res1', 'res2', 'res3'], 'deprecated' => ['resa', 'resb'] },
+        [action],
         nil
       )
       api_version
     end
     let(:later_version) do
       gate = { 'name' => 'allows_bar', 'description' => 'another description' }
+      action = {
+        'name' => 'fooAction',
+        'request' => {
+          'allowed' => { 'new param' => 'new Type' },
+          'deprecated' => [:something]
+        },
+        'arguments' => {
+          'allowed' => { 'new param' => 'new Type' },
+          'deprecated' => ['delete']
+        },
+        'response' => {
+          'allowed' => { 'new param' => 'new Type' },
+          'deprecated' => ['anything']
+        }
+      }
       api_version = Gates::ApiVersion.new(
         '2016-01-30',
         [gate],
-        { 'allowed' => ['req4', 'req5', 'req6'], 'deprecated' => ['req1', 'req2'] },
-        { 'allowed' => ['res4', 'res5', 'res6'], 'deprecated' => ['res1', 'res2'] },
+        [action],
         initial_version
       )
       api_version
@@ -37,11 +63,15 @@ describe Gates::ApiVersion do
       end
 
       it 'request params should return just the allowed params' do
-        expect(initial_version.request_params).to eq(['req1', 'req2', 'req3'])
+        expect(initial_version.request_params_for('fooAction')).to eq({"user"=>"String", :something=>"Type"})
+      end
+
+      it 'arguments params should return just the allowed params' do
+        expect(initial_version.arguments_params_for('fooAction')).to eq({"age"=>"Integer", "delete"=>"Bool"})
       end
 
       it 'response params should return just the allowed params' do
-        expect(initial_version.response_params).to eq(['res1', 'res2', 'res3'])
+        expect(initial_version.response_params_for('fooAction')).to eq({"name"=>"String", "anything"=>"Type"})
       end
     end
 
@@ -59,11 +89,15 @@ describe Gates::ApiVersion do
       end
 
       it 'request params should return the filtered params' do
-        expect(later_version.request_params).to eq(['req3', 'req4', 'req5', 'req6'])
+        expect(later_version.request_params_for('fooAction')).to eq({"user"=>"String", "new param"=>"new Type"})
+      end
+
+      it 'aruments params should return the filtered params' do
+        expect(later_version.arguments_params_for('fooAction')).to eq({"age"=>"Integer", "new param"=>"new Type"})
       end
 
       it 'response params should return the filtered params' do
-        expect(later_version.response_params).to eq(['res3', 'res4', 'res5', 'res6'])
+        expect(later_version.response_params_for('fooAction')).to eq({"name"=>"String", "new param"=>"new Type"})
       end
     end
   end

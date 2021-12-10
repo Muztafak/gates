@@ -1,13 +1,11 @@
 ---
 version:
-  id: '2016-01-30'
+  id: '2020-01-01'
   gates:
-    -
-      name: 'reallows_amount1'
-      description: |
-        'Just kidding. Sending amount is supported for some folks.'
+    - name: 'allow amount'
+      description: 'The user can pay with bitcoin'
   actions:
-    - name: 'directionsIndexaa'
+    - name: 'paymentsIndex'
       request:
         allowed:
           aaabbb: aaabbb

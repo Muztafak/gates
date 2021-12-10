@@ -1,13 +1,11 @@
 ---
 version:
-  id: '2016-01-30'
+  id: '2020-01-01'
   gates:
-    -
-      name: 'reallows_amount'
-      description: |
-        'Just kidding. Sending amount is supported for some folks.'
+    - name: 'allow user to do something'
+      description: 'The user can dance.'
   actions:
-    - name: 'directionsIndex'
+    - name: 'usersIndex'
       request:
         allowed:
           aaa: aaa
