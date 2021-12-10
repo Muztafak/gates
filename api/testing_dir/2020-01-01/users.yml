@@ -13,7 +13,19 @@ version:
             abc: :Integer
       response:
         allowed:
-          ppp: ppp
+          ppp:
+            aaa: aaa
+            bbb:
+              bba: bba
+              bbc: bbc
+              bbd: bbd
+            ccc:
+              ddd:
+                eee:
+                  fff:
+                    ggg: ggg
+                    hhh: hhh
+                    iii: iii
           qqq: qqq
         deprecated:
           - 'a joke'

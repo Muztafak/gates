@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'active_support/core_ext/hash'
+
 module Gates
   class ApiVersion
     attr_accessor :id, :gates, :actions, :predecessor
@@ -57,6 +59,8 @@ module Gates
       allowed_params(action, :arguments)
     end
 
+
+
     def allowed_params(action, type)
       action_index = actions.index(action)
       allowed_params = action_index ? actions[action_index].send(type).allowed : {}
@@ -64,8 +68,25 @@ module Gates
       deprecated_params = action_index ? actions[action_index].send(type).deprecated : []
       puts "bbb #{deprecated_params}"
       predecessor = send(:predecessor)&.allowed_params(action, type) || {}
-      deprecated_params.each { |key| predecessor.delete(key) }
-      predecessor.merge(allowed_params)
+      filtered_params = params_handler(predecessor, deprecated_params)
+      puts filtered_params
+
+      filtered_params.deep_merge(allowed_params)
     end
+
+    def params_handler(predecesor_params, deprecated_params)
+      deprecated_params.each do |deprecated_param|
+        case deprecated_param
+        when Hash
+          params_handler(predecesor_params[key = deprecated_param.keys.first], deprecated_param[key])
+        else
+          predecesor_params.delete(deprecated_param)
+        end
+      end
+      predecesor_params
+    end
+
+
+
   end
 end

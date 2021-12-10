@@ -1,0 +1,27 @@
+---
+version:
+  id: '2020-06-01'
+  gates:
+    - name: "The user should't dance anymore"
+      description: 'This user needs to take dace classes before being ridiculized.'
+  actions:
+    - name: usersIndex
+      request:
+        allowed:
+          ccc: ccc
+        deprecated:
+          - bbb
+      response:
+        allowed:
+          rrr: rrr
+        deprecated:
+          - ppp:
+            - aaa
+            - bbb
+            - ccc:
+              - ddd:
+                  - eee:
+                    - fff:
+                      - ggg
+          - qqq
+

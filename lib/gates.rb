@@ -8,8 +8,7 @@ require 'gates/manifest'
 require 'gates/version'
 require 'actions/params'
 require 'actions/action'
-# '/home/mustafak/Development/EnviaYa/enviaya_versioning/travis.yml'
-# Gates.load '/home/mustafak/Development/EnviaYa/enviaya_versioning/api/versioning_manifest.yml'
+
 module Gates
   Error = Class.new(StandardError)
   UninitializedError = Class.new(Gates::Error)
