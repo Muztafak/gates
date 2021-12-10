@@ -3,16 +3,20 @@
 [![Build
 Status](https://travis-ci.org/phillbaker/gates.png?branch=master)](https://travis-ci.org/phillbaker/gates)
 
-This is an implementation of the ideas expressed in this post about Stripe's public API versioning, [Move fast, don't break your API](http://amberonrails.com/move-fast-dont-break-your-api/). The goal is to separate layers of request and response compatibility from the API logic, with two important drivers:
+This is a form from https://github.com/phillbaker/gates: an implementation of the ideas expressed in this post about Stripe's public API versioning, [Move fast, don't break your API](http://amberonrails.com/move-fast-dont-break-your-api/). The goal is to separate layers of request and response compatibility from the API logic, with two important drivers:
  * let your customers migrate API versions at their convenience, minimize the pain of upgrades when they do upgrade.
  * make it feasible to fix backward incompatible API schema mistakes (they will happen).
+
+Besides this in [Envia Ya](https://enviaya.com.mx) had the idea of why not to this even more dynamic, obviously we have breaking changes in API versions but most of the times we are just adding intern fuctionality, adding parameters to the response, changing names. And now with the popularity of GraphQL the use of just the Gates ideas becomes very outdated.
+
+Why if we have files stating parameters and types, nested and unnested, and in every verssion substract and add the new parameters, even combine it with the GraphQL request and so on.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'gates'
+gem 'gates', :git => 'https://github.com/Muztafak/gates.git'
 ```
 
 And then execute:
@@ -77,18 +81,32 @@ versions:
           Sending amount is supported.
 ```
 
+In this version you can separate your files and perform :
+
+```
+Gates.load('some dir route')
+```
+```yaml
+---
+version:
+  id: '2020-01-01'
+  gates:
+    - name: 'allow amount'
+      description: 'The user can pay with bitcoin'
+  actions:
+    - name: 'paymentsIndex'
+      request:
+        allowed:
+          type: String
+          customer:
+            name: Integer
+      response:
+        allowed:
+          date: Date
+          tax: Integer
+        deprecated:
+          - old_parameter
+
 ### Testing
 
 Make sure to test both paths in order to not break compatibility!
-
-## Similar projects
-
-* [multiverse in Elixir](https://github.com/Nebo15/multiverse)
-
-## Contributing
-
-1. Fork it ( https://github.com/phillbaker/gates/fork )
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
