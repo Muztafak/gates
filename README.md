@@ -7,7 +7,7 @@ This is a form from https://github.com/phillbaker/gates: an implementation of th
  * let your customers migrate API versions at their convenience, minimize the pain of upgrades when they do upgrade.
  * make it feasible to fix backward incompatible API schema mistakes (they will happen).
 
-Besides this in [Envia Ya](https://enviaya.com.mx) had the idea of why not to this even more dynamic, obviously we have breaking changes in API versions but most of the times we are just adding intern fuctionality, adding parameters to the response, changing names. And now with the popularity of GraphQL the use of just the Gates ideas becomes very outdated.
+Besides this in [Envia Ya](https://enviaya.com.mx) we had the idea of, why not to make this even more dynamic, obviously we have breaking changes in API versions but most of the times we are just adding intern fuctionality, adding parameters to the response, changing names. And now with the popularity of GraphQL the use of just the Gates ideas becomes very outdated.
 
 Why if we have files stating parameters and types, nested and unnested, and in every verssion substract and add the new parameters, even combine it with the GraphQL request and so on.
 
